@@ -661,3 +661,7 @@ func maxInt32(a, b int32) int32 {
 
 	return b
 }
+
+func (d *Direction) NumberOfFrames() int {
+	return len(d.frames)
+}
