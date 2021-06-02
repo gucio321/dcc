@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-)
 
-import (
-	dcc "github.com/gravestench/dcc/pkg"
+	dcc "github.com/gucio321/dcc/pkg"
 )
 
 func main() {

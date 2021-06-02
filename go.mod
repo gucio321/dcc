@@ -1,4 +1,4 @@
-module github.com/gravestench/dcc
+module github.com/gucio321/dcc
 
 go 1.16
 

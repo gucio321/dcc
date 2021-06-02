@@ -8,15 +8,15 @@ import (
 	"github.com/OpenDiablo2/HellSpawner/hscommon"
 	"github.com/ianling/giu"
 
-	lib "github.com/gravestench/dcc/pkg"
-	"github.com/gravestench/dcc/pkg/giuwidget"
+	lib "github.com/gucio321/dcc/pkg"
+	"github.com/gucio321/dcc/pkg/giuwidget"
 )
 
 const (
-	title = "dcc viewer"
-	defaultWidth = 256
+	title         = "dcc viewer"
+	defaultWidth  = 256
 	defaultHeight = 256
-	windowFlags = giu.MasterWindowFlagsFloating & giu.MasterWindowFlagsNotResizable
+	windowFlags   = giu.MasterWindowFlagsFloating & giu.MasterWindowFlagsNotResizable
 )
 
 func main() {
@@ -58,5 +58,4 @@ func printUsage() {
 }
 
 func render() {
-
 }

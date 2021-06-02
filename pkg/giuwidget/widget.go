@@ -7,10 +7,11 @@ import (
 	"github.com/ianling/giu"
 	"github.com/ianling/imgui-go"
 
-	dcclib "github.com/gravestench/dcc/pkg"
+	dcclib "github.com/gucio321/dcc/pkg"
 
 	"github.com/OpenDiablo2/HellSpawner/hscommon"
 )
+
 const (
 	// nolint:gomnd // constant = constant
 	maxAlpha = uint8(255)
