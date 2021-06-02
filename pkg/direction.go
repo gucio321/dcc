@@ -3,8 +3,9 @@ package pkg
 import (
 	"errors"
 	"fmt"
-	"github.com/gravestench/bitstream"
 	"image"
+
+	"github.com/gravestench/bitstream"
 )
 
 const streamSizeBits = 20 // num bits for representing a substream
@@ -308,7 +309,7 @@ func (d *Direction) calculateCells() {
 }
 
 func (d *Direction) fillPixelBuffer(pcd, ec, pm, et, rp *bitstream.Reader) (err error) {
-	var pixelMaskLookup = []int{0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4}
+	pixelMaskLookup := []int{0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4}
 
 	lastPixel := uint32(0)
 	maxCellX := 0
@@ -478,7 +479,7 @@ func (d *Direction) generateFrames(pcd *bitstream.Reader) (err error) {
 		cell.LastHeight = -1
 	}
 
-	d.PixelData = make([]byte, d.Box.Dx() * d.Box.Dy())
+	d.PixelData = make([]byte, d.Box.Dx()*d.Box.Dy())
 
 	for frameIndex, frame := range d.frames {
 		if err = d.generateFrame(frameIndex, frame, pcd); err != nil {
@@ -497,7 +498,7 @@ func (d *Direction) generateFrames(pcd *bitstream.Reader) (err error) {
 func (d *Direction) generateFrame(frameIndex int, frame *Frame, pcd *bitstream.Reader) error {
 	pbIdx := 0
 
-	frame.PixelData = make([]byte, d.Box.Dx() * d.Box.Dy())
+	frame.PixelData = make([]byte, d.Box.Dx()*d.Box.Dy())
 
 	for cellIdx, cell := range frame.Cells {
 		cellX := cell.XOffset / cellsPerRow
@@ -553,8 +554,8 @@ func (d *Direction) generateFrame(frameIndex int, frame *Frame, pcd *bitstream.R
 					for x := 0; x < cell.Width; x++ {
 						paletteIndex, err := pcd.Next(bitsToRead).Bits().AsUInt32()
 						if err != nil {
-							const fmtErr = "reading palette index at coord(%v, %v)"
-							return fmt.Errorf(fmtErr, frameIndex, x, y)
+							const fmtErr = "reading palette index at frame %d coord(%v, %v): %w"
+							return fmt.Errorf(fmtErr, frameIndex, x, y, err)
 						}
 
 						d.PixelData[x+cell.XOffset+((y+cell.YOffset)*d.Box.Dx())] = pbe.Value[paletteIndex]
@@ -590,9 +591,9 @@ func (d *Direction) verify(
 	encodingTypeBitstream,
 	rawPixelCodesBitstream *bitstream.Reader,
 ) error {
-	steps := []struct{
-		name string
-		stream *bitstream.Reader
+	steps := []struct {
+		name             string
+		stream           *bitstream.Reader
 		expectedBitsRead int
 	}{
 		{"EqualCells", equalCellsBitstream, int(d.EqualCellsBitstreamSize)},
@@ -640,7 +641,7 @@ func crazyLookup(idx uint32, err error) (int, error) {
 	}
 
 	// nolint:gomnd // constant
-	var crazyBitTable = []byte{0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 26, 28, 30, 32}
+	crazyBitTable := []byte{0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 26, 28, 30, 32}
 
 	return int(crazyBitTable[idx]), err
 }

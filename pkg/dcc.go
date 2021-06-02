@@ -41,7 +41,7 @@ type DCC struct {
 	framesPerDirection uint32
 	directions         []*Direction
 	palette            color.Palette
-	stream *bitstream.Reader
+	stream             *bitstream.Reader
 	dirty              bool // when anything is changed this flag is set, causes recalculation
 }
 
@@ -169,7 +169,6 @@ func (d *DCC) decodeBody(stream *bitstream.Reader) error {
 }
 
 func (d *DCC) generateImages() error {
-
 	return nil
 }
 
@@ -205,4 +204,12 @@ func (d *DCC) Clone() *DCC {
 	newDcc, _ := FromBytes(bytes)
 
 	return newDcc
+}
+
+func (d *DCC) NumberOfDirections() int {
+	return len(d.directions)
+}
+
+func (d *DCC) FramesPerDirection() int {
+	return int(d.framesPerDirection)
 }
